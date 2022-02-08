@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "title": "First todo",
+      "description": "This is a description for my first todo in the app.",
+      "completed": false
+    },
+    {
+      "title": "wnd todo",
+      "description": "This is a description for thingssssssss.",
+      "completed": true
+    }
+  ]
+}

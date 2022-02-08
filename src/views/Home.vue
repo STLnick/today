@@ -1,18 +1,31 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <TodoList :todos="todos" />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import Todo from "@/types/Todo";
+import TodoList from "@/components/TodoList.vue";
 
-@Options({
+export default defineComponent({
+  name: "Home",
   components: {
-    HelloWorld,
+    TodoList,
   },
-})
-export default class Home extends Vue {}
+  setup() {
+    const store = useStore();
+    let todos: Todo[] = [];
+
+    if (store.state.todos) {
+      todos = store.state.todos;
+    }
+
+    return {
+      todos,
+    };
+  }
+});
 </script>
