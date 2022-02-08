@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import Todo from "@/types/Todo";
 /* Use this to set local todos again in case they are deleted, removed, corrupted, etc. */
 // localStorage.setItem("todayTodos", JSON.stringify(
 //   [
@@ -18,11 +19,15 @@ export default createStore({
     },
   },
   actions: {
-    updateTodos({ commit }, newTodos) {
-      if (!newTodos) return;
+    updateTodo({ commit, state }, updatedTodo) {
+      if (!updatedTodo) return;
 
-      commit("setTodos", newTodos);
-      localStorage.setItem("todayTodos", JSON.stringify(newTodos));
+      const updatedTodos = state.todos.map((todo: Todo) => {
+        return todo.id === updatedTodo.id ? updatedTodo : todo;
+      });
+
+      commit("setTodos", updatedTodos);
+      localStorage.setItem("todayTodos", JSON.stringify(updatedTodos));
     },
   },
   modules: {},
