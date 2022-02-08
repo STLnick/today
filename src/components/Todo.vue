@@ -1,7 +1,12 @@
 <template>
   <div class="todo">
     <h2>{{ todo.title }}</h2>
-    <input type="checkbox" @change="handleChange" :checked="todo.completed" />
+    <input
+      type="checkbox"
+      :checked="todo.completed"
+      @change="({target}) => handleCompletedChange(target.checked)"
+      @input="() => {}"
+    />
     <p>{{ todo.description }}</p>
   </div>
 </template>
@@ -18,18 +23,13 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
-    const handleChange = (e: Event) => {
-      // take checked val
-      //const completed = e.target?.checked;
-      // take current todo object
-      // overwrite completed property
-      // take updated todo + rest of todos
-      // dispatch action
+  setup(props, { emit }) {
+    const handleCompletedChange = (completed: boolean) => {
+      emit("update-todo", { ...props.todo, completed });
     };
 
     return {
-      handleChange,
+      handleCompletedChange,
       test: props.todo.completed,
     };
   },
